@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+
+	"name": "Udacity Code Reviewer Checker",
+	"description": "Udacity Code Reviewer extension, check if there's any audit waiting on queue to be done.",
+	"version": "1.0",
+
+	"browser_action": {
+		"default_icon": "icon.png"
+	},
+
+	"background": {
+		"scripts": ["popup.js"]
+	},
+
+	"permissions": [
+		"activeTab",
+		"tabs",
+		"notifications",
+		"https://review-api.udacity.com/"
+	]
+}
