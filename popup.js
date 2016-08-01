@@ -39,8 +39,8 @@ function getRecentProjects() {
 }
 
 function setNoAvailableAuditNotification() {
-	ba.setBadgeBackgroundColor({color: [255, 0, 0, 128]});
-	ba.setBadgeText({text: ' '}); // remove the badge
+	ba.setBadgeBackgroundColor({color: [0, 255, 0, 128]});
+	ba.setBadgeText({text: ''}); // remove the badge
 }
 
 function setAvailableAuditNotification(itemCount) {
