@@ -8,8 +8,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 function getRecentProjects() {
 	var baseUrl = 'https://review-api.udacity.com';
-	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNzc2OSwiZXhwIjoxNDcxOTI5MTY4L' +
-				'CJ0b2tlbl90eXBlIjoiYXBpIn0.oIM-lZCXfLx7s8KWLC_5KvFNQNT0DWXV2FQck30GpHg';
+	var token = 'api-key';
 
 	var request = new XMLHttpRequest();
 	request.open('GET', baseUrl+'/api/v1/me/submissions/assigned.json', true);
