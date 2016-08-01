@@ -8,20 +8,21 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 function getRecentProjects() {
 	var baseUrl = 'https://review-api.udacity.com';
-	var token = 'insert-your-token-here';
+	var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNzc2OSwiZXhwIjoxNDcxOTI5MTY4L' +
+				'CJ0b2tlbl90eXBlIjoiYXBpIn0.oIM-lZCXfLx7s8KWLC_5KvFNQNT0DWXV2FQck30GpHg';
 
 	var request = new XMLHttpRequest();
-	request.open('GET', baseUrl+'/api/v1/me/audits.json', true);
+	request.open('GET', baseUrl+'/api/v1/me/submissions/assigned.json', true);
 	request.setRequestHeader('Authorization', token)
 
 	request.onload = function() {
 		if (request.status >= 200 && request.status < 400) {
 			var data = JSON.parse(request.responseText);
 			console.log(data);
-			if (data.lenght == 0) {
+			if (data.length == 0) {
 				setNoAvailableAuditNotification();
-			} else if (data.lenght > 0) {
-				setAvailableAuditNotification(data.lenght);
+			} else if (data.length > 0) {
+				setAvailableAuditNotification(data.length);
 			}
 		} else {
 			// TODO: handle error
