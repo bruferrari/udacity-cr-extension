@@ -1,5 +1,5 @@
 var ba = chrome.browserAction;
-var intervalTime = 3000 * 60; // 3 minutes
+var intervalTime = Math.random() * 5000 * 60; // variable time between 0-5 minutes
 
 chrome.browserAction.onClicked.addListener(function(tab) {
 	var destination = 'https://review.udacity.com/#!/submissions/dashboard';
