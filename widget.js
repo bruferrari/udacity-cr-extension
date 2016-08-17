@@ -2,7 +2,7 @@ var ba = chrome.browserAction;
 var intervalTime = Math.random() * 3000 * 60;
 
 var baseUrl = 'https://review-api.udacity.com';
-var token = 'your_api_key_here';
+var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNzc2OSwiZXhwIjoxNDcyNzcwODU4LCJ0b2tlbl90eXBlIjoiYXBpIn0.RvSxK112ku6RaUuA7lkO8hDTuc8a7-4CPdhO9bfA6lk';
 
 var data;
 

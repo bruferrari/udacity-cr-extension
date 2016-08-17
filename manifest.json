@@ -10,7 +10,7 @@
 	},
 
 	"background": {
-		"scripts": ["popup.js"]
+		"scripts": ["widget.js"]
 	},
 
 	"permissions": [
