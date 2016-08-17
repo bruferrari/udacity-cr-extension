@@ -8,20 +8,24 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 function getRecentProjects() {
 	var baseUrl = 'https://review-api.udacity.com';
-	var token = 'api-key';
+	var token = 'replace_by_your_api';
 
 	var request = new XMLHttpRequest();
-	request.open('GET', baseUrl+'/api/v1/me/submissions/assigned.json', true);
+	var data;
+	request.open('GET', baseUrl+'/api/v1/me/certifications', true);
 	request.setRequestHeader('Authorization', token)
 
 	request.onload = function() {
+		data = JSON.parse(request.responseText);
 		if (request.status >= 200 && request.status < 400) {
-			var data = JSON.parse(request.responseText);
-			console.log(data);
-			if (data.length == 0) {
-				setNoAvailableAuditNotification();
-			} else if (data.length > 0) {
-				setAvailableAuditNotification(data.length);
+			for (i = 0; i < data.length; i++) {
+				if (data[i]['status'] == 'certified' && data[i]['active']) {
+					logListenProjects(data);
+					if (data[i]['awaiting_review_count'] > 0)
+						setAvailableAuditNotification(data.length);
+					else if (data[i]['awaiting_review_count'] == 0)
+						setNoAvailableAuditNotification();
+				}
 			}
 		} else {
 			// TODO: handle error
@@ -46,6 +50,11 @@ function setNoAvailableAuditNotification() {
 function setAvailableAuditNotification(itemCount) {
 	ba.setBadgeBackgroundColor({color: [255, 0, 0, 128]});
 	ba.setBadgeText({text: '' + itemCount});
+}
+
+function logListenProjects(data) {
+	console.log("listening project " + data[i].project['name'] + " with " 
+									+ data[i].project['awaiting_review_count'] + " audit pending");
 }
 
 getRecentProjects();
