@@ -2,10 +2,10 @@ var ba = chrome.browserAction;
 var intervalTime = Math.random() * 3000 * 60;
 
 var baseUrl = 'https://review-api.udacity.com';
-var token = 'api-key-here';
+var token = 'api-token-here';
 
 var data;
-var avaiableProjectsPtBr = 0;
+var project = {};
 
 chrome.browserAction.onClicked.addListener(function(tab) {
 	var destination = 'https://review.udacity.com/#!/submissions/dashboard';
@@ -13,6 +13,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 
 function getRecentProjects() {
+	var avaiableProjectsPtBr = 0;
 
 	var request = new XMLHttpRequest();
 	request.open('GET', baseUrl + '/api/v1/me/certifications', true);
@@ -24,11 +25,16 @@ function getRecentProjects() {
 			for (i = 0; i < data.length; i++) {
 				if (isCertified() && isActiveProject()) {
 					logListenProjects(data);
-					if (data[i].project['awaiting_review_count_by_language']['pt-br'] > 0)
+					if (data[i].project['awaiting_review_count_by_language']['pt-br'] > 0) {
 						avaiableProjectsPtBr ++;
+						project['name'] = data[i].project['name']
+						project['rate'] = 0.0
+						createNotification(project);
+					}
 				}
 			}
 			updateNotificationStatus(avaiableProjectsPtBr);
+			// createNotification(data.project['name']);
 		} else {
 			// TODO: handle error
 			console.log(data);
@@ -42,6 +48,19 @@ function getRecentProjects() {
 	request.send();
 
 	setTimeout(getRecentProjects, intervalTime);
+}
+
+function createNotification(project) {
+	var opt = {
+	  type: "basic",
+	  title: "Review Available",
+	  message: project.name + " Rate: " + project.rate,
+	  iconUrl: "icon.png"
+	}
+
+	chrome.notifications.create("example", opt, function callback(){
+		console.log("asdasda")
+	});
 }
 
 function removeCounterBadge() {
